@@ -1,0 +1,22 @@
+name: Actions Javascript
+
+#https://docs.github.com/en/actions/creating-actions/about-custom-actions
+
+on: [push]
+
+# o arquivo aqui e actions porque e custom
+# por padrão o metadata e action.yml ou action.yaml
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simple JS Action
+        id: greeting
+        uses: actions/hello-world-javascript-action@v1
+        # posso fazer acoes dentro do próprio codigo,neste exemplo estou interagindo com algo externo
+        # https://github.com/actions/hello-world-javascript-action
+        with:
+          who-to-greet: "Kenji"
+      - name: Print name login
+        run: echo ${{ steps.greet.outputs.time }}
