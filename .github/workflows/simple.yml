@@ -15,7 +15,7 @@ jobs:
       - name: shell with python
         run: |
           import platform
-          print(platform.process())
+          print(platform.processor())
         shell: python
   #  apos o | na linha abaixo e um recurso do yml para strings de multi linha,
   # aqui sera vários comandos executados em seguidas
