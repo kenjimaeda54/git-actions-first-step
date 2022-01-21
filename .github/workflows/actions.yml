@@ -23,4 +23,7 @@ jobs:
         # por exemplo se tem um repositorio que sua action o retorno
         # e os ultimos commits de quem contribui,conseguira ver aqui
       - name: Print name login
-        run: echo "${{ steps.greet.outputs.time }}"
+        run: |
+          echo "${{ steps.greeting.outputs.time }}"
+          echo "${{ steps.greeting }}"
+        # id e a referencia acima
