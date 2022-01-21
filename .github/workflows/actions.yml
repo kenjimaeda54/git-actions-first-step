@@ -16,7 +16,11 @@ jobs:
         uses: actions/hello-world-javascript-action@v1
         # posso fazer acoes dentro do próprio codigo,neste exemplo estou interagindo com algo externo
         # https://github.com/actions/hello-world-javascript-action
+        # quando eu fizer isso vai retornar um objeto contento
         with:
-          who-to-greet: "Kenji"
+          who-to-greet: "Kenji" # vai adicionar um hello aqui nesse nome
+        # a ideia aqui e a mostrar a possibilidade de integarir com um outro repositorio
+        # por exemplo se tem um repositorio que sua action o retorno
+        # e os ultimos commits de quem contribui,conseguira ver aqui
       - name: Print name login
-        run: echo ${{ steps.greet.outputs.time }}
+        run: echo "${{ steps.greet.outputs.time }}"
