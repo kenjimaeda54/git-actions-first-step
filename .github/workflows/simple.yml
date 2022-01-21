@@ -1,0 +1,17 @@
+name: Work Flow Shell
+#https://docs.github.com/en/actions/managing-workflow-runs#enabling-debug-logging
+on: [push]
+
+jobs:
+  run-shell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo string
+        run: echo "Hello World"
+      - name: multiline
+        run: |
+          pwd
+          node --version
+
+#  apos o | na linha abaixo e um recurso do yml para strings de multi linha,
+# aqui sera vários comandos executados em seguidas
