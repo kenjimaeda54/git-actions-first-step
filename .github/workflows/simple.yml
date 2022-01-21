@@ -3,7 +3,7 @@ name: Work Flow Shell
 on: [push]
 
 jobs:
-  run-shell:
+  run-shell-ubuntu: # aqui pode ser qualquer nome,sera o nome para identificar os job
     runs-on: ubuntu-latest
     steps:
       - name: echo string
@@ -12,6 +12,19 @@ jobs:
         run: |
           pwd
           node --version
-
-#  apos o | na linha abaixo e um recurso do yml para strings de multi linha,
-# aqui sera vários comandos executados em seguidas
+      - name: shell with python
+        run: |
+          import platform
+          print(platform.process())
+        shell: python
+  #  apos o | na linha abaixo e um recurso do yml para strings de multi linha,
+  # aqui sera vários comandos executados em seguidas
+  run-shell-window: # ideal ja que  sistema operacional diferente rodar em outro job
+    runs-on: windows-latest
+    needs: ["run-shell-ubuntu"] # por padrão actions trabalha em paralelo usando need vai ficar seguencial
+    steps:
+      - name: use command windows
+        run: GET-LOCATION
+      - name: use equal commands on bash # bash e um shell e nao sistema operacional
+        run: pwd
+        shell: bash
