@@ -41,8 +41,7 @@ jobs:
           pwd
           ls -a
       - name: List after checkout
-        uses: actions/checkout@v1
-        id: checkout
+        uses: actions/checkout@v2
         run: |
           pwd
           ls -a
