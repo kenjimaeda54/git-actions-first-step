@@ -40,8 +40,9 @@ jobs:
         run: |
           pwd
           ls -a
-      - name: List after checkout
+      - name: checkout
         uses: actions/checkout@v2
+      - name: List of files after checkout
         run: |
           pwd
           ls -a
