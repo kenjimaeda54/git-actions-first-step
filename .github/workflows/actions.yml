@@ -2,7 +2,14 @@ name: Actions Javascript
 
 #https://docs.github.com/en/actions/creating-actions/about-custom-actions
 
-on: [push]
+on:
+  push:
+  pull_request:
+    types:
+      - assigned
+      - closed
+      - opened
+      - reopened
 
 # o arquivo aqui e actions porque e custom
 # por padrão o metadata e action.yml ou action.yaml
@@ -25,5 +32,5 @@ jobs:
       - name: Print name login
         run: |
           echo "${{ steps.greeting.outputs.time }}"
-          echo "${{ steps.greeting }}"
         # id e a referencia acima
+        #  steps.greeting.outputs vai printar um objeto e nele tem o time
