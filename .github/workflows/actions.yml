@@ -34,6 +34,8 @@ jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
+      - name: payload client_payload
+        run: echo payload of the client  ${{ github.event.client_payload.env }}
       - name: Simple JS Action
         id: greeting
         uses: actions/hello-world-javascript-action@v1
