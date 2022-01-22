@@ -29,6 +29,7 @@ on: # precisa passar o token do github como basico autorization
 
 # o arquivo aqui e actions porque e custom
 # por padrão o metadata e action.yml ou action.yaml
+#  https://docs.github.com/pt/actions/learn-github-actions/environment-variables
 
 jobs:
   run-github-actions:
@@ -40,11 +41,14 @@ jobs:
         run: |
           pwd
           ls -a
+          echo repository  $GITHUB_REPOSITORY
+          echo hash commit $GITHUB_SHA
+          echo autor $GITHUB_ACTOR
       - name: checkout
         uses: actions/checkout@v2
       - name: List of files after checkout
+        # a partir daqui consigo ver os arquivos locais #https://github.com/actions/checkout
         run: |
-          # a partir daqui consigo ver os arquivos locais #https://github.com/actions/checkout
           pwd 
           ls -a
       - name: payload client_payload #esse erro abaixo e bug do eslint
