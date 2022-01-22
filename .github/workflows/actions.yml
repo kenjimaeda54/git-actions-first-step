@@ -42,8 +42,6 @@ jobs:
           ls -a
       - name: checkout
         uses: actions/checkout@v2
-        with:
-          ref: my-branch
       - name: List of files after checkout
         run: |
           # a partir daqui consigo ver os arquivos locais #https://github.com/actions/checkout
