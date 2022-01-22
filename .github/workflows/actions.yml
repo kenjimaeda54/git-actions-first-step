@@ -1,12 +1,25 @@
 name: Actions Javascript
-
+#https://docs.github.com/en/developers/apps
 #https://docs.github.com/en/actions/creating-actions/about-custom-actions
 #https://crontab.guru/examples.html
 #https://crontab.guru/
-on:
-  schedule: # vai rodar automático o código, de acordo com nossa agenda
-    - cron: "*/20 * * * *"
-    - cron: "*/23 * * * *"
+
+#https://github.com/marketplace?type=actions
+#https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event
+
+# menor tempo na agenda e de 5 em 5 minutos
+
+# schedule: # vai rodar automático o código, de acordo com nossa agenda
+#   - cron: "*/20 * * * *"
+#   - cron: "*/23 * * * *"
+
+on: # precisa passar o token do github como basico autorization
+  repository_dispatch: # exemplo de api https://api.github.com/repos/kenjimaeda54/git-actions-workflow-first-step/dispatches
+    # vou realizar um dispatch externo,por exemplo de uma api
+    # para funcionar precisa corretamente no nome que esta no build e no event_type
+    # esse event_type externo
+    types:
+      - build # sera um post  /repos/{owner}/{repo}/dispatches
   pull_request:
     types:
       - assigned

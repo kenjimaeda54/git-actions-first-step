@@ -1,6 +1,6 @@
 name: Work Flow Shell
 #https://docs.github.com/en/actions/managing-workflow-runs#enabling-debug-logging
-on: [push]
+on: [pull_request]
 
 jobs:
   run-shell-ubuntu: # aqui pode ser qualquer nome,sera o nome para identificar os job
