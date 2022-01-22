@@ -34,7 +34,11 @@ jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
-      - name: payload client_payload
+      - name: List of files
+        run: |
+          pwd
+          ls -a
+      - name: payload client_payload #esse erro abaixo e bug do eslint
         run: echo payload of the client  ${{ github.event.client_payload.env }}
       - name: Simple JS Action
         id: greeting
