@@ -42,9 +42,12 @@ jobs:
           ls -a
       - name: checkout
         uses: actions/checkout@v2
+        with:
+          ref: my-branch
       - name: List of files after checkout
         run: |
-          pwd
+          # a partir daqui consigo ver os arquivos locais #https://github.com/actions/checkout
+          pwd 
           ls -a
       - name: payload client_payload #esse erro abaixo e bug do eslint
         run: echo payload of the client  ${{ github.event.client_payload.env }}
