@@ -1,9 +1,12 @@
 name: Actions Javascript
 
 #https://docs.github.com/en/actions/creating-actions/about-custom-actions
-
+#https://crontab.guru/examples.html
+#https://crontab.guru/
 on:
-  push:
+  schedule: # vai rodar automático o código, de acordo com nossa agenda
+    - cron: "*/20 * * * *"
+    - cron: "*/23 * * * *"
   pull_request:
     types:
       - assigned
