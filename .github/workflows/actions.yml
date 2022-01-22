@@ -31,6 +31,9 @@ on: # precisa passar o token do github como basico autorization
 # por padrão o metadata e action.yml ou action.yaml
 #  https://docs.github.com/pt/actions/learn-github-actions/environment-variables
 
+# parterns
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
