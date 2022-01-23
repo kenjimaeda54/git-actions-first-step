@@ -6,15 +6,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-      - name: Dump job context
-        run: echo '${{ toJSON(job) }}'
-      - name: Dump steps context
-        run: echo '${{ toJSON(steps) }}'
-      - name: Dump runner context
-        run: echo '${{ toJSON(runner) }}'
-      - name: Dump strategy context
-        run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
-        run: echo '${{ toJSON(matrix) }}
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo $GITHUB_CONTEXT
+      - name: Dumb Job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo $JOB_CONTEXT
+      - name: Dumb steps context
+        env:
+          STEEPS_CONTEXT: ${{ toJSON(steps)  }}
+        run: echo $STEEPS_CONTEXT
+      - name: Dumb runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo $RUNNER_CONTEXT
+      - name: Dumb matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo $MATRIX_CONTEXT
+      - name: Dumb strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo $STRATEGY_CONTEXT
