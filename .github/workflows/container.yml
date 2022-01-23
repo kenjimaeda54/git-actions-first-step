@@ -2,13 +2,21 @@ name: Container
 
 on: push
 
+# release e a versao do linux como id,name
 jobs:
   docker-node:
     runs-on: ubuntu-latest
-    container:
-      image: node:14.18-alpine3.14 #cliquei no docker hub em node e la escolhi imagem
+    services:
+      app:
+        image: mongo
+        ports:
+          - 3001:3000
+      mongo:
+        image: mongo
+        ports:
+          - "27017:27017"
     steps:
-      - name: Node version
-        run: |
-          node --version
-          cat /etc/os-release
+      - name: Create user
+        run: 'curl -X POST http://localhost:3001/api/user -H ''Content-type: application/json -d'' {"username":"joao","address":"avenida matarazo"}'
+      - name: Get user
+        run: "curl  http://localhost:3001/api/users "
