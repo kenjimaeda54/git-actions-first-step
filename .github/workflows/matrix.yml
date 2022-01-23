@@ -17,7 +17,9 @@ jobs:
             is_ubuntu: "this matrix is available ubuntu"
         exclude:
           - os: windows-latest # nao vai rodar os jobs nessa etapa
-            node_version: [7, 8]
+            node_version: 7 # nao aceita array aqui se deseja duas versões precisa separar
+          - os: windows-latest
+            node_version: 8
           - os: macos-latest
             node_version: 7
     runs-on: ${{ matrix.os }}
