@@ -17,6 +17,6 @@ jobs:
           - "27017:27017"
     steps:
       - name: Create user
-        run: 'curl -X POST http://localhost:3001/api/user -H ''Content-type: application/json -d'' {"username":"joao","address":"avenida matarazo"}'
+        run: 'curl -X POST http://localhost:3001/api/user -H ''Content-type: application/json'' -d ''{"username":"joao","address":"avenida matarazo"}'''
       - name: Get user
         run: "curl  http://localhost:3001/api/users "
