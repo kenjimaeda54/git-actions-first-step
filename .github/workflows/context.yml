@@ -1,7 +1,30 @@
 name: Context testing
+
+env:
+  ARRAY:
+    - banaa
+    - maca
+    - pera
+
 on: push
 
+# https://docs.github.com/en/actions/learn-github-actions/contexts#functions
+
+#https://docs.github.com/en/actions/learn-github-actions/contexts
+
+#https://docs.github.com/en/actions/learn-github-actions/expressions#tojson
 jobs:
+  functions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Functions available
+        # repara nas aspas simples
+        run: |
+          echo ${{ contains($ARRAY,banana) }}
+          echo ${{ startsWith('Hello', 'H') }}
+          echo ${{ endsWith('Hello', 'o') }}
+          echo ${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}
+
   dump_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
