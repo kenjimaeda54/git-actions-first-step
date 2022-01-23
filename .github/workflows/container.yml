@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       app:
-        image: mongo
+        image: mongo-express:latest
         ports:
           - 3001:3000
       mongo:
