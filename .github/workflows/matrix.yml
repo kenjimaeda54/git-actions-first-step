@@ -6,11 +6,12 @@ on: push
 jobs:
   node-version:
     runs-on: ubuntu-latest
+    # para usar o uses pode ser assim
     steps:
       - name: Log node version current
         run: echo node --version
-      - name: Log node version 13
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "13"
+      - name: Log node version 13
         run: echo node --version
