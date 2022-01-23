@@ -21,7 +21,6 @@ jobs:
         with: # para achar os caminhos no terminal type -a <exemplo node
           entrypoint: "/usr/local/bin/node" # para sobrescrever preciso chamar novamente a imagem dai consigo usar run
           args: "-v"
-        run: echo $(node --version)
   docker-node:
     runs-on: ubuntu-latest
     services:
