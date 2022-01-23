@@ -5,13 +5,19 @@ on: push
 
 jobs:
   node-version:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node_version: [14, 7, 8]
+    runs-on: ${{ matrix.os }}
+    # vai rodar em ubuntu e macos esse job
     # para usar o uses pode ser assim
     steps:
       - name: Log node version current
         run: echo $(node --version)
       - uses: actions/setup-node@v2
         with:
-          node-version: "13"
-      - name: Log node version 13
+          node-version: ${{ matrix.node_version }}
+          # vou configurar esse job para varias versões do node
+      - name: Log node version ${{ matrix.node_version }}
         run: node --version
