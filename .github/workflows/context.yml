@@ -14,8 +14,6 @@ jobs:
       - name: Functions available
         # repara nas aspas simples
         run: |
-          VAR=("apple" "orange" "pear")
-          echo ${{ contains($VAR,banana) }}
           echo ${{ startsWith('Hello', 'H') }}
           echo ${{ endsWith('Hello', 'o') }}
           echo ${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}
