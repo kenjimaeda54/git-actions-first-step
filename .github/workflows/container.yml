@@ -4,6 +4,24 @@ on: push
 
 # release e a versao do linux como id,name
 jobs:
+  docker-steps: # como usar varias imagens docker
+    runs-on: ubuntu-latest
+    container:
+      image: node:16-alpine
+    steps:
+      - name: Log node version
+        run: echo node --version
+      - name: Step with docker
+        uses: docker://node:17-alpine
+        with:
+          entrypoint: "/bin/echo" # quando ele ver esse entrypoint vai executar outra imagem e sobescrever o caminho
+          args: "hello"
+      - name: Log node --version
+        uses: docker://node:17-alpine
+        with: # para achar os caminhos no terminal type -a <exemplo node
+          entrypoint: "/usr/local/bin/node" # para sobrescrever preciso chamar novamente a imagem dai consigo usar run
+          args: "-v"
+        run: echo $(node --version)
   docker-node:
     runs-on: ubuntu-latest
     services:
