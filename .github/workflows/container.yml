@@ -1,0 +1,14 @@
+name: Container
+
+on: push
+
+jobs:
+  docker-node:
+    runs-on: ubuntu-latest
+    container:
+      image: node:14.18-alpine3.14 #cliquei no docker hub em node e la escolhi imagem
+    steps:
+      - name: Node version
+        run: |
+          node --version
+          cat /etc/os-release
