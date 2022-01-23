@@ -7,11 +7,22 @@ jobs:
   node-version:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         node_version: [14, 7, 8]
+        # vai rodar em ubuntu e macos esse job
+        # para usar o uses pode ser assim
+        include:
+          - os: ubuntu-latest
+            node_version: 14
+            is_ubuntu: "this matrix is available ubuntu"
+        exclude:
+          - os: windows-latest # nao vai rodar os jobs nessa etapa
+            node_version: [7, 8]
+          - os: macos-latest
+            node_version: 7
     runs-on: ${{ matrix.os }}
-    # vai rodar em ubuntu e macos esse job
-    # para usar o uses pode ser assim
+    env:
+      UBUNTU: ${{ matrix.is_ubuntu }} # pode vir nullo por isso e bom colocar aqui
     steps:
       - name: Log node version current
         run: echo $(node --version)
@@ -20,4 +31,6 @@ jobs:
           node-version: ${{ matrix.node_version }}
           # vou configurar esse job para varias versões do node
       - name: Log node version ${{ matrix.node_version }}
-        run: node --version
+        run: |
+          echo $UBUNTU
+          node --version
