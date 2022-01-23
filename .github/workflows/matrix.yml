@@ -1,0 +1,16 @@
+name: Matrix
+
+on: push
+#https://github.com/actions/setup-node
+
+jobs:
+  node-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log node version current
+        run: echo node --version
+      - name: Log node version 13
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+        run: echo node --version
