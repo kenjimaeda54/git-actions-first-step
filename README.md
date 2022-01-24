@@ -167,16 +167,146 @@ jobs:
           echo Environment global "$WF_ENV"
           echo Name of job $GITHUB_JOB
           echo Id commit  $GITHUB_SHA
-
-  
-  
  
   ```
   
   
-  ##
+  ## 
   
-  
+  - As variaveis acessadas atraves do {{}} sao conhecidas como context
+  - [Funcao](https://docs.github.com/en/actions/learn-github-actions/contexts#functions) context  
+  - Docs do que sao (contexto)(https://docs.github.com/en/actions/learn-github-actions/contexts)
+  - E as expressoes(https://docs.github.com/en/actions/learn-github-actions/expressions#tojson)
+  - Com as expressoes posso fazer if,para caso algo falhar realizar outro job,ou sempre executar um job indente que falhe
+  - Mas com if tem um problema nao consigo garantir que os outros jobs continuem funcionando se falhar para isso existe continue-on-error
+  - Por padrao continue-on-error e falso
+
+
+
+``` yml
+
+on: push
+
+jobs:
+  functions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Functions available
+        # repara nas aspas simples
+        run: |
+          echo ${{ startsWith('Hello', 'H') }}
+          echo ${{ endsWith('Hello', 'o') }}
+          echo ${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}
+
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo $GITHUB_CONTEXT
+      - name: Dumb Job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo $JOB_CONTEXT
+      - name: Dumb steps context
+        env:
+          STEEPS_CONTEXT: ${{ toJSON(steps)  }}
+        run: echo $STEEPS_CONTEXT
+      - name: Dumb runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo $RUNNER_CONTEXT
+      - name: Dumb matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo $MATRIX_CONTEXT
+      - name: Dumb strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo $STRATEGY_CONTEXT
+
+
+# continue on erro example
+
+
+ run-shell-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo string
+        run: echo "Hello World"
+        continue-on-error: true
+      - name: multiline
+        run: |
+          pwd
+          node --version
+      - name: shell with python
+        run: |
+          import platform
+          print(platform.processor())
+        shell: python
+
+```
+
+
+##
+- Algo poderoso no github actions são as matrizes
+- Com a matriz consigo efetuar várias tarefas de trabalho em pequenas linhas
+- Exemplo abaixo configurando o job para rodar em versões de node diferentes é sistemas operacionais
+- No campo exclude garanto que serão executadas só a matriz que desejo
+- No campo include adiciono novas feature na matriz que e correspondente ao campo
+- Por fim fiz trabalhei com imagens de docker
+- Fiz stepes com docker, sobrescrevendo o entrypoint que vai executar a imagem, e com args, enviando os comandos que desejo
+- Os caminhos do echo e possível usar no linux type -a <comando>
+
+
+``` yml
+
+name: Matrix
+
+on: pull_request
+#https://github.com/actions/setup-node
+
+jobs:
+  node-version:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node_version: [14, 7, 8]
+        include:
+          - os: ubuntu-latest
+            node_version: 14
+            is_ubuntu: "this matrix is available ubuntu"
+        exclude:
+          - os: windows-latest
+            node_version: 7 # nao aceita array aqui se deseja duas versões precisa separar
+          - os: windows-latest
+            node_version: 8
+          - os: macos-latest
+            node_version: 7
+    runs-on: ${{ matrix.os }}
+    env:
+      UBUNTU: ${{ matrix.is_ubuntu }} # pode vir nullo por isso e bom colocar aqui
+    steps:
+      - name: Log node version current
+        run: echo $(node --version)
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+          # vou configurar esse job para varias versões do node
+      - name: Log node version ${{ matrix.node_version }}
+        run: |
+          echo $UBUNTU
+          node --version
+
+
+```
+
+## 
+
+
+
   
   
   
