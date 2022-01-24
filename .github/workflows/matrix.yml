@@ -10,11 +10,11 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         node_version: [14, 7, 8]
         include:
-          - os: ubuntu-latest # com include garanto configurações adicioneis por exemplo no ubuntu_latest,node_version 14, vai ficar disponível a variável is_ubuntu
+          - os: ubuntu-latest
             node_version: 14
             is_ubuntu: "this matrix is available ubuntu"
         exclude:
-          - os: windows-latest # nao vai rodar os jobs nessa etapa
+          - os: windows-latest
             node_version: 7 # nao aceita array aqui se deseja duas versões precisa separar
           - os: windows-latest
             node_version: 8

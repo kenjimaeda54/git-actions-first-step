@@ -1,13 +1,14 @@
 name: Work Flow Shell
-#https://docs.github.com/en/actions/managing-workflow-runs#enabling-debug-logging
+
 on: [pull_request]
 
 jobs:
-  run-shell-ubuntu: # aqui pode ser qualquer nome,sera o nome para identificar os job
+  run-shell-ubuntu:
     runs-on: ubuntu-latest
     steps:
       - name: echo string
         run: echo "Hello World"
+        continue-on-error: true
       - name: multiline
         run: |
           pwd
@@ -17,14 +18,12 @@ jobs:
           import platform
           print(platform.processor())
         shell: python
-  #  apos o | na linha abaixo e um recurso do yml para strings de multi linha,
-  # aqui sera vários comandos executados em seguidas
-  run-shell-window: # ideal ja que  sistema operacional diferente rodar em outro job
+  run-shell-window:
     runs-on: windows-latest
-    needs: ["run-shell-ubuntu"] # por padrão actions trabalha em paralelo usando need vai ficar seguencial
+    needs: ["run-shell-ubuntu"]
     steps:
       - name: use command windows
         run: GET-LOCATION
-      - name: use equal commands on bash # bash e um shell e nao sistema operacional
+      - name: use equal commands on bash
         run: pwd
         shell: bash

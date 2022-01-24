@@ -1,25 +1,9 @@
 name: Actions Javascript
-#https://docs.github.com/en/developers/apps
-#https://docs.github.com/en/actions/creating-actions/about-custom-actions
-#https://crontab.guru/examples.html
-#https://crontab.guru/
 
-#https://github.com/marketplace?type=actions
-#https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event
-
-# menor tempo na agenda e de 5 em 5 minutos
-
-# schedule: # vai rodar automático o código, de acordo com nossa agenda
-#   - cron: "*/20 * * * *"
-#   - cron: "*/23 * * * *"
-
-on: # precisa passar o token do github como basico autorization
-  repository_dispatch: # exemplo de api https://api.github.com/repos/kenjimaeda54/git-actions-workflow-first-step/dispatches
-    # vou realizar um dispatch externo,por exemplo de uma api
-    # para funcionar precisa corretamente no nome que esta no build e no event_type
-    # esse event_type externo
+on:
+  repository_dispatch:
     types:
-      - build # sera um post  /repos/{owner}/{repo}/dispatches
+      - build
   pull_request:
     types:
       - assigned
@@ -29,18 +13,12 @@ on: # precisa passar o token do github como basico autorization
 
 # o arquivo aqui e actions porque e custom
 # por padrão o metadata e action.yml ou action.yaml
-#  https://docs.github.com/pt/actions/learn-github-actions/environment-variables
-
-# parterns
-# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
 
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
       - name: List of files
-        # sem relizar o checkout, git hub so vai enchegar a maquina virtual
-        # entao se for preciso verificar os locais precisa fazer acionts/checkout
         run: |
           pwd
           ls -a
@@ -50,25 +28,17 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: List of files after checkout
-        # a partir daqui consigo ver os arquivos locais #https://github.com/actions/checkout
+        # a partir daqui consigo ver os arquivos locais #
         run: |
           pwd 
           ls -a
-      - name: payload client_payload #esse erro abaixo e bug do eslint
+      - name: payload client_payload
         run: echo payload of the client  ${{ github.event.client_payload.env }}
       - name: Simple JS Action
         id: greeting
         uses: actions/hello-world-javascript-action@v1
-        # posso fazer acoes dentro do próprio codigo,neste exemplo estou interagindo com algo externo
-        # https://github.com/actions/hello-world-javascript-action
-        # quando eu fizer isso vai retornar um objeto contento
         with:
-          who-to-greet: "Kenji" # vai adicionar um hello aqui nesse nome
-        # a ideia aqui e a mostrar a possibilidade de integarir com um outro repositorio
-        # por exemplo se tem um repositorio que sua action o retorno
-        # e os ultimos commits de quem contribui,conseguira ver aqui
+          who-to-greet: "Kenji"
       - name: Print name login
         run: |
           echo "${{ steps.greeting.outputs.time }}"
-        # id e a referencia acima
-        #  steps.greeting.outputs vai printar um objeto e nele tem o time

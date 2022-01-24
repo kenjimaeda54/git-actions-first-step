@@ -4,7 +4,7 @@ on: push
 
 # release e a versao do linux como id,name
 jobs:
-  docker-steps: # como usar varias imagens docker
+  docker-steps:
     runs-on: ubuntu-latest
     container:
       image: node:16-alpine
@@ -14,8 +14,8 @@ jobs:
       - name: Step with docker
         uses: docker://node:17-alpine
         with:
-          entrypoint: "/bin/echo" # quando ele ver esse entrypoint vai executar outra imagem e sobescrever o caminho
-          args: "hello" # vai printar o args e redirecionar
+          entrypoint: "/bin/echo"
+          args: "hello"
       - name: Log node --version
         uses: docker://node:17-alpine
         with: # para achar os caminhos no terminal type -a <exemplo node
@@ -29,7 +29,7 @@ jobs:
           args: "-l"
       - name: Run a script
         uses: docker://node:17-alpine # sempre olha a especificacao da imagem para nao cometer erro e #!/bin/sh
-        with:
+        with: # as vezes da bug aqui com o eslint
           entrypoint: ./script.sh
           args: "Some string"
   docker-node:
