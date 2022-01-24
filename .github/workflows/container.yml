@@ -30,7 +30,7 @@ jobs:
       - name: Run a script
         uses: docker://node:17-alpine
         with:
-          entrypoint: "./script.sh"
+          entrypoint: ./script.sh
           args: "Some string"
   docker-node:
     runs-on: ubuntu-latest
