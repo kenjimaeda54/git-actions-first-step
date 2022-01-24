@@ -22,6 +22,11 @@ jobs:
           entrypoint: "/usr/local/bin/node" # para sobrescrever preciso chamar novamente a imagem dai consigo usar run
           args: "-v" # vai printar o args e alterar imagem
       - uses: actions/checkout@v1
+      - name: Where is am
+        uses: docker://node:17-alpine
+        with:
+          entrypoint: "/bin/ls"
+          args: "-l"
       - name: Run a script
         uses: docker://node:17-alpine
         with:
