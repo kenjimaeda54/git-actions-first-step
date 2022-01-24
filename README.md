@@ -14,7 +14,7 @@ Praticar git actions é suas ferramentas, para poder aplicar em projetos e traba
 - Quando desejo trabalhar com outro sistema operacional precisa estar em outro job, exemplo abaixo estou usando windows
 - Por padrão os jobs rodam em paralelo com needs, eles se tornam sequenciais
 
-  ``` yaml
+``` yaml
   
 name: Work Flow Shell
 
@@ -44,8 +44,7 @@ jobs:
       - name: use equal commands on bash 
         run: pwd
         shell: bash
-  
-  
+ 
   ```
   
   
